@@ -1,0 +1,2 @@
+defmodule Mpd do
+end
