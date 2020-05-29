@@ -1,4 +1,9 @@
 defmodule Mpd.Database do
+  @moduledoc """
+  This is a WIP on implementing a cached database. The goal is to have a database copy cached in something like a dets table for faster launching.any()
+
+  In the moment, it'll call `:listall` and then `:listallinfo` for all the song on each genserver's startup.
+  """
   defstruct songs: %{}, tree: %{}
   use GenServer
   import Mpd.Utils

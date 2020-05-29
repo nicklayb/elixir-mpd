@@ -1,5 +1,6 @@
 defmodule Mpd.Status do
-  @doc """
+  @moduledoc """
+  Represents a server status
 
   ## Status keys
 
@@ -50,28 +51,16 @@ defmodule Mpd.Status do
             updating_db: nil,
             error: nil
 
+  @type t() :: %Mpd.Status{}
   import Mpd.Utils
 
   @atom_states ~w(play pause stop)a
   @states Enum.map(@atom_states, &to_string/1)
 
-  def percent_elapsed(%Mpd.Status{elapsed: elapsed, duration: duration}) do
-    100 * elapsed / duration
-  end
-
-  def format_elapsed(%Mpd.Status{elapsed: elapsed, duration: duration}) do
-    elapsed = format_time(elapsed)
-    duration = format_time(duration)
-
-    "#{elapsed} / #{duration}"
-  end
-
-  def tick_elapsed(%__MODULE__{elapsed: elapsed, state: :play} = status) do
-    %__MODULE__{status | elapsed: elapsed + 1}
-  end
-
-  def tick_elapsed(status), do: status
-
+  @doc """
+  Parse MPD output as a status struct
+  """
+  @spec parse(binary) :: Mpd.Status.t()
   def parse(string) do
     string
     |> String.split("\n")

@@ -3,7 +3,10 @@ defmodule Mpd.Database.Importer do
   require Mpd.Utils
   Mpd.Utils.logger()
 
-  @spec import :: map()
+  @doc """
+  Loads all the mpd database songs and their tags
+  """
+  @spec import :: Mpd.Songs.song_map()
   def import do
     debug("Loading songs")
 

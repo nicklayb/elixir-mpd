@@ -7,8 +7,13 @@ defmodule Mpd.Stats do
             db_update: 0,
             playtime: 0
 
+  @type t :: %Mpd.Stats{}
   import Mpd.Utils
 
+  @doc """
+  Parses MPD output as a stats struct
+  """
+  @spec parse(binary) :: any
   def parse(string) do
     string
     |> String.split("\n")
